@@ -14,9 +14,9 @@ The aim of this folder is not to obsess over numbers. It's to make sure the thin
 - **What counts:** consecutive hours where I am genuinely unreachable (no Slack, no email, no "quick check") and no critical process stalls, no customer is blocked, no teammate is waiting on me.
 - **How I measure:** longest uninterrupted stretch in a normal work day over the last 7 days. Not the best day, not the worst day — the median.
 - **Why it matters:** this is the cleanest proxy for whether I'm a bottleneck. A business that needs me every 20 minutes is not a business, it's a job.
-- **Baseline:**
-- **90-day target:**
-- **12-month target:**
+- **Baseline (2026-05-04):** ~1 hour/day
+- **90-day target:** 25hrs/week on tools, 15hrs/week off tools (working on the business)
+- **12-month target:** _Set after 90-day target is hit_
 
 ### 2. Automation / augmentation ratio
 **Question:** What percentage of the tasks I currently do are automated or heavily augmented?
@@ -27,9 +27,9 @@ The aim of this folder is not to obsess over numbers. It's to make sure the thin
   - **Manual** = me, from scratch, every time.
 - **How I measure:** at the end of each week, list the top ~20 tasks I actually did. Tag each one A / G / M. Ratio = (A + G) / total.
 - **Why it matters:** manual % is the ceiling on how much I can grow without burning out. Dropping manual % is the only way step-away hours go up.
-- **Baseline:**
-- **90-day target:**
-- **12-month target:**
+- **Baseline (2026-05-04):** ~50% automated/augmented, ~50% manual
+- **90-day target:** 75% automated/augmented
+- **12-month target:** _Set after 90-day target is hit_
 
 ### 3. Revenue per person
 **Question:** How much revenue does the business generate per person on the team?
@@ -37,9 +37,9 @@ The aim of this folder is not to obsess over numbers. It's to make sure the thin
 - **What counts:** trailing 12-month revenue ÷ total full-time-equivalent headcount (including me, including contractors pro-rated by FTE).
 - **How I measure:** monthly. Simple division.
 - **Why it matters:** this is the blunt instrument that tells me whether my automation and leverage moves are actually paying off. If step-away hours and automation go up but revenue per person doesn't, I'm automating the wrong things.
-- **Baseline:**
-- **90-day target:**
-- **12-month target:**
+- **Baseline (2026-05-04):** ~$100k (solo — 1 FTE)
+- **90-day target:** $100k/quarter (~$400k/year run rate)
+- **12-month target:** $1M/year
 
 ---
 
