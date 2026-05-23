@@ -81,6 +81,7 @@ See the top of this README for what it does.
 
 - Capture on the fly: `/brain-capture "the thing I want to remember"`
 - Morning briefing: `/brain-brief`
+- Activation Report (TOP 3 + tied to North Star): `/activate`
 - Check state: `/brain-status`
 - Weekly review: `/brain-review weekly`
 - Regenerate wiki: `/brain-quick-wiki`
@@ -129,7 +130,7 @@ Every `People/`, `5 - Projects/`, `6 - Areas/` page follows the **compiled-truth
 | `Vault` | Central credentials store |
 | `.inbox` | Landing zone for raw captures (not canonical) |
 | `.obsidian/plugins` | Bundled Obsidian plugins (terminal, agentfiles, excalidraw) |
-| `.claude/commands` | Slash commands — `/brain-setup`, `/brain-onboard`, `/brain-capture`, `/brain-status`, `/brain-brief`, `/brain-discover`, `/brain-quick-wiki`, `/brain-review`, `/brain-sync`, `/brain-tidy` |
+| `.claude/commands` | Slash commands — `/brain-setup`, `/brain-onboard`, `/brain-capture`, `/brain-status`, `/brain-brief`, `/activate`, `/brain-discover`, `/brain-quick-wiki`, `/brain-review`, `/brain-sync`, `/brain-tidy` |
 | `scripts` | `setup.sh`, `install_plugins.sh`, and other shell helpers |
 | `Archive` | Anything no longer active |
 | `AGENTS.md` | Instructions for AI agents working in this vault |

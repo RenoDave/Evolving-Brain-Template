@@ -56,6 +56,7 @@ This vault ships with slash commands in `.claude/commands/`. When the user invok
 - `/brain-capture <thought>` — drop a thought into `.inbox/manual/`
 - `/brain-status` — read-only status report
 - `/brain-brief` — morning briefing
+- `/activate` — Activation Report (TOP 3, ONE THING, watch / delegate / network / anchor — tied to North Star)
 - `/brain-discover` — scan the user's machine for markdown sources to import
 - `/brain-quick-wiki` — build the Wikipedia-style static site
 - `/brain-review [weekly|monthly|quarterly]` — review workflow

@@ -37,6 +37,18 @@
 ---
 
 - **Date:** 2026-05-23
+- **Action:** Created `/activate` slash command in Claude Code — vault-only mirror of the Cowork `renobuilt-activate` skill
+- **Context:** Dave built `renobuilt-activate` in Cowork earlier this session (it reads vault + Gmail + Calendar + QBO and outputs an Activation Report). He wanted the same logic available from Claude Code against the vault directly, without the external surfaces.
+- **Outcome:**
+  - .claude/commands/activate.md — new slash command. Reads NORTH STAR.md, ACTIVE PROJECTS.md, 5 - Projects/, 6 - Areas/, People/, ACTIONS_LOG.md, ASSISTANT_ACTIONS_LOG.md, GOALS.md, HABITS.md, 12 FAVORITE PROBLEMS.md, SOUL.md (for Anchor). Outputs TOP 3 (action / why / first move / time / leverage 1-10), ONE THING, WATCH, DELEGATE/AUTOMATE/KILL, NETWORK NUDGE, ANCHOR, Sources thin footer. Read-only on the vault except (a) optional saved report at 4 - Meetings/YYYY-MM-DD activation.md, and (b) backfilling missing 90-day targets in NORTH STAR.md if Dave answers the focused question.
+  - AGENTS.md — added `/activate` to the slash command list
+  - README.md — added `/activate` to the Daily use list and the folder map row for `.claude/commands`
+- **Deviation from spec:** Dave's spec said "save to 8 - North Star/<year>-Qn-targets.md" if quarterly targets are empty. I save to NORTH STAR.md instead, because NORTH STAR.md self-declares "Quarterly... This is the only place targets should get edited" — creating a separate per-quarter file would split the source of truth. Dave confirmed NORTH STAR.md is the right call.
+- **Undo:** `rm .claude/commands/activate.md` and `git checkout -- AGENTS.md README.md` if not yet committed.
+- **Related:** [[NORTH STAR]], Cowork `renobuilt-activate` skill (canonical reference, lives outside this repo)
+---
+
+- **Date:** 2026-05-23
 - **Action:** Scaffolded GitHub Actions cron for the inbox processor (Phase 5)
 - **Context:** Dave asked for the manual processor to move onto a scheduled job. GitHub Actions on a cron is the cheap path (free under 2,000 min/month on a private repo). Pushing the scaffold disabled until first manual run is verified.
 - **Outcome:**
