@@ -68,7 +68,7 @@ Generated on 2026-05-04. Conversational onboarding — answers given live in cha
 The vault is now populated with your identity and aspirations. Next steps to connect it to agents:
 
 1. **Wire one connector** — what's the one source of information you want flowing into `.inbox/` automatically? Best candidates for a construction business: meeting notes (Fathom/Otter), voice memos, or a manual capture habit.
-2. **Set up gbrain** — add `SUPABASE_POOLER_URL` and `OPENAI_API_KEY` to `Vault/.env`, then run `scripts/setup.sh` to initialize the semantic search layer.
+2. **Confirm Google Drive sync is active** — the vault folder should be syncing to Drive via Drive for Desktop. That's the retrieval layer — every Claude surface (Cowork, Desktop, Code, mobile) reads markdown from Drive directly. See MASTER PLAN Phase 6.
 3. **Schedule the processor** — once a connector is wired, set up a cron so the brain updates itself.
 
 These are covered in `Onboarding/04 - connect your sources.md`.

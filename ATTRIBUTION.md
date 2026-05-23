@@ -9,14 +9,13 @@ The Evolving Brain borrows ideas, patterns, and sometimes prompt text from sever
 **Repo:** https://github.com/garrytan/gbrain
 **License:** MIT — Copyright (c) 2026 Garry Tan
 **Upstream doc pins:** `e9f3c9c24d36a8bbef85ea55411cfe3001d342a3` (2026-04-10) in `9 - Operations/upstream/gbrain/`
-**Runtime install:** `gbrain 0.5.0` installed via `bun install -g github:garrytan/gbrain` (commit `27eb87f`, 2026-04-10)
 
-**We now run gbrain as our retrieval layer** (not just track its docs). The architecture:
+**We studied gbrain and adopted its patterns; we do NOT run the gbrain runtime.** The architecture:
 
 - **Vault (this repo)** is the canonical source of truth. Every markdown file, every entity page, every log entry lives in git.
-- **gbrain** indexes the vault into Postgres + pgvector via the user's own Supabase project. Provides hybrid keyword + vector search, link graph traversal, and an MCP server.
-- **Sync direction** is vault → gbrain. Writes go to markdown files; `gbrain sync` is called at the end of the inbox processor workflow to push new/changed files into the index. We never write to gbrain as the primary path.
-- **If gbrain disappears**, the vault still works — retrieval falls back to grep via the `query` workflow. No data is lost, just some retrieval speed / semantic capability.
+- **Retrieval** happens via the Google Drive MCP — every Claude surface (Cowork, Desktop, Code, mobile) reads markdown files from Drive directly. No semantic search yet; keyword search is sufficient at current scale.
+- **gbrain is tracked upstream** in `9 - Operations/upstream/gbrain/` so we can pull in pattern updates. The runtime is not installed.
+- **Status update 2026-05-23:** Earlier plan called for gbrain-as-retrieval-layer on Supabase + OpenAI embeddings. Pivoted to Google Drive MCP for simplicity and zero cost. See MASTER PLAN Phase 6 for the rationale.
 
 **What we borrowed (in addition to running the tool):**
 - The "compiled truth on top, append-only timeline on bottom" entity page pattern (adopted in `People/`, `5 - Projects/`, `6 - Areas/` templates)

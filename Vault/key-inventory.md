@@ -8,8 +8,15 @@ Human-readable catalog of every secret in `Vault/.env`. Values are NOT stored he
 |---|---|---|---|---|
 | `ANTHROPIC_API_KEY` | Calling the Anthropic API directly (outside Claude Code subscription flows) | Any workflow that needs raw API access | global | rotate every 90d |
 | `GITHUB_TOKEN` | Reading/writing this repo from scripts and GitHub Actions | Inbox processor, connectors that commit captures | global | rotate every 90d |
-| `OPENAI_API_KEY` | Embedding generation for gbrain's semantic search index | `gbrain sync`, `gbrain embed` — called by inbox processor after each run | global | rotate every 90d |
-| `SUPABASE_POOLER_URL` | Postgres connection string (Session pooler, port 6543) for gbrain's retrieval layer. NOT a Supabase PAT — it's a `postgresql://` URL. | `gbrain init`, `gbrain sync`, `gbrain query`, `gbrain search`, all gbrain commands | global | rotate database password every 90d; store new URL here |
+
+## Optional / not currently used
+
+These keys are kept in `.env.example` and `.env` for future use but are NOT required for the brain to function. The Google Drive MCP handles retrieval (see MASTER PLAN Phase 6).
+
+| Key | What it would be for | Used by | Status |
+|---|---|---|---|
+| `OPENAI_API_KEY` | Embedding generation for gbrain's semantic search index | `gbrain sync`, `gbrain embed` (gbrain not currently installed) | Optional — re-enable if vault grows past ~2,000 files |
+| `SUPABASE_POOLER_URL` | Postgres connection string (Session pooler, port 6543) for gbrain's retrieval layer | `gbrain init`, `gbrain sync`, all gbrain commands (gbrain not currently installed) | Optional — re-enable with gbrain |
 
 ## Deprecated / removed keys
 

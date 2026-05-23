@@ -8,7 +8,7 @@ A connector is "wired" when: it exists, it's authenticated, and it's either runn
 
 | Connector | Type | Source | Target | Schedule | Scope | Credentials | File |
 |---|---|---|---|---|---|---|---|
-| _None yet_ | | | | | | | |
+| Google Drive MCP | MCP server | Google Drive (vault + `.inbox/`) | Vault read/write across all Claude surfaces | On-demand (per Claude call) | global | Cowork OAuth (already connected) | _this row only_ |
 
 ## Paused
 

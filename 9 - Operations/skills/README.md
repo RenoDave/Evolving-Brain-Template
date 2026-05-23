@@ -33,8 +33,13 @@ Tools installed globally via package managers, separate from Obsidian and Claude
 
 | Tool | What it does | Install | Required | Source |
 |---|---|---|---|---|
-| `gbrain` | Semantic retrieval layer for the vault. Indexes markdown into Postgres + pgvector (via Supabase). Provides hybrid keyword + vector search, link graph traversal, and an MCP server so Claude can query the brain from any surface. | `bun install -g github:garrytan/gbrain` + `gbrain init --url "$SUPABASE_POOLER_URL"` — both handled by `scripts/setup.sh` step 5 | yes (required for semantic search; vault works without it via grep fallback) | [garrytan/gbrain](https://github.com/garrytan/gbrain) |
 | `@crafter/skillkit` | Local-first analytics for AI agent skills (usage, burn rate, context budget, prune unused). Powers the Agentfiles dashboard. | `npm i -g @crafter/skillkit && skillkit scan` — handled by `scripts/setup.sh` step 4 | yes (for the Agentfiles dashboard view) | [crafter-station/skill-kit](https://github.com/crafter-station/skill-kit) |
+
+## CLI companions (Optional / not currently installed)
+
+| Tool | What it would do | Status | Source |
+|---|---|---|---|
+| `gbrain` | Semantic retrieval layer (Postgres + pgvector via Supabase) + MCP server for cross-surface query. | Not installed. Retrieval is via the Google Drive MCP (see MASTER PLAN Phase 6). Revisit if the vault passes ~2,000 files and keyword search starts failing. Patterns still tracked in `9 - Operations/upstream/gbrain/`. | [garrytan/gbrain](https://github.com/garrytan/gbrain) |
 
 ## Claude Code skills (Active)
 

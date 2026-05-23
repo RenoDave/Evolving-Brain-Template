@@ -80,35 +80,24 @@ Already done. 8-folder PARA structure (Identity, Aspirations, Live Logs, Daily J
 - Cadence: every 3 hours
 - Failure mode: processor opens a GitHub Issue on the repo if it errors
 
-### Phase 6 — MCP server for "Claude reads me from anywhere" (partial ✅ via gbrain)
+### Phase 6 — Multi-surface retrieval via Google Drive MCP ✅
 
-**Status update 2026-04-10:** We adopted gbrain as the retrieval layer instead of building our own MCP server from scratch. The user already pays for Supabase, which was the main blocker. See `ATTRIBUTION.md` for architecture details.
+**Status update 2026-05-23:** Pivoted from gbrain-on-Supabase to the Google Drive MCP directly. The vault already syncs to Drive via Drive for Desktop, and every Claude surface (Cowork, Desktop, Code, mobile) has Google Drive connector support out of the box. Keyword search only — no semantic — which is fine at current scale (low hundreds of files).
 
-- `gbrain 0.5.0` installed globally via bun (`bun install -g github:garrytan/gbrain`)
-- Vault stays canonical; gbrain indexes into the user's Supabase Postgres + pgvector
-- Inbox processor now calls `gbrain sync` at the end of each run (graceful fallback if gbrain isn't initialized)
-- gbrain's built-in MCP server handles the "Claude reads me from anywhere" requirement
-- Local-only query fallback via grep still works if gbrain is unavailable
+- Vault stays canonical in git + on disk (synced to Drive via Drive for Desktop)
+- Google Drive MCP exposes the vault to every Claude surface for read access
+- Mobile Claude reads the vault via the same Drive connector
+- Inbox writes from phone flow via iOS Shortcut → Drive `.inbox/` → processor
+- gbrain remains tracked upstream (good prior art); runtime NOT installed
 
-**What's still to do for full Phase 6 completion:**
-- Run `gbrain init` against the user's actual Supabase Session Pooler URL (blocked on the user providing the right credential type)
-- Run `gbrain import` to index the current vault
-- Wire gbrain's MCP into Claude Desktop + Claude Code MCP configs
-- Test that mobile Claude can query via the gbrain MCP through a relay if needed
+**Why we pivoted:**
+- $0 vs ~$2/yr Supabase + OpenAI
+- Zero setup vs 15 min + ongoing maintenance
+- Don't actually need semantic search at current vault size
+- Drive connector is already in every Claude surface we care about
+- Anti-overbuild: solve the problem we have, not the one we might have
 
-**Original Phase 6 plan (kept for reference):**
-
-### Phase 6 (original, superseded by gbrain adoption)
-A thin MCP server exposing:
-- `search_vault(query)` — semantic + keyword search over all markdown
-- `read_entity(path)` — read a specific file
-- `append_to_inbox(source, content)` — let Claude on phone drop a capture
-- `get_context(topic)` — return the N most relevant files for a topic
-- `get_north_star()` — return current metrics and targets
-- `list_projects(status)` — return active/paused/archived projects
-- `log_assistant_action(entry)` — append to ASSISTANT_ACTIONS_LOG.md
-
-Runs locally for desktop Claude. For mobile Claude, the GitHub connector is the path (Claude reads the repo directly) and `append_to_inbox` goes through a small hosted relay or iOS Shortcut.
+**When to revisit:** If the vault passes ~2,000 files and keyword search starts failing, install gbrain then. Until then, this is leverage.
 
 ### Phase 7 — Visualization layer
 Two views of the same data.
