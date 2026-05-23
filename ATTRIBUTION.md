@@ -76,7 +76,7 @@ The vault ships with three community plugins pre-downloaded and enabled (`.obsid
 
 **Repo:** https://github.com/railly/agentfiles
 **Plugin ID:** `agentfiles`
-**Pinned version:** 0.7.2
+**Pinned version:** 0.7.4
 **License:** MIT — Copyright (c) 2026 Railly Hugo
 **What it does:** Browse, create, and edit AI agent files across Claude Code, Cursor, Codex, Windsurf, and 13+ other tools — from inside Obsidian. Pairs well with our `.claude/commands/` and `9 - Operations/workflows/` folders.
 
@@ -84,7 +84,7 @@ The vault ships with three community plugins pre-downloaded and enabled (`.obsid
 
 **Repo:** https://github.com/zsviczian/obsidian-excalidraw-plugin
 **Plugin ID:** `obsidian-excalidraw-plugin`
-**Pinned version:** 2.22.0
+**Pinned version:** 2.23.3
 **License:** MIT — Copyright Zsolt Viczián
 **What it does:** Sketch drawings, diagrams, and hand-drawn mind maps inside Obsidian. The "4D Visual PKM" tool.
 

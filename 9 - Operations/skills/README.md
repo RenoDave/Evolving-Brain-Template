@@ -10,8 +10,8 @@ Capabilities the brain expects to have available. Two kinds:
 | Plugin | What it does | Version | Source | Required |
 |---|---|---|---|---|
 | `terminal` | Cross-platform embedded terminal in Obsidian (Git Bash on Windows, zsh/bash on macOS/Linux). Default profile pre-set to Git Bash on Windows via `data.json`. | 3.23.0 | [polyipseity/obsidian-terminal](https://github.com/polyipseity/obsidian-terminal) | yes |
-| `agentfiles` | Browse / edit AI agent files (Claude Code, Cursor, Codex, Windsurf, …) from Obsidian. Dashboard view requires skillkit (auto-installed by `setup.sh`). | 0.7.2 | [railly/agentfiles](https://github.com/railly/agentfiles) | yes |
-| `obsidian-excalidraw-plugin` | Sketch drawings, diagrams, hand-drawn mind maps | 2.22.0 | [zsviczian/obsidian-excalidraw-plugin](https://github.com/zsviczian/obsidian-excalidraw-plugin) | yes |
+| `agentfiles` | Browse / edit AI agent files (Claude Code, Cursor, Codex, Windsurf, …) from Obsidian. Dashboard view requires skillkit (auto-installed by `setup.sh`). | 0.7.4 | [railly/agentfiles](https://github.com/railly/agentfiles) | yes |
+| `obsidian-excalidraw-plugin` | Sketch drawings, diagrams, hand-drawn mind maps | 2.23.3 | [zsviczian/obsidian-excalidraw-plugin](https://github.com/zsviczian/obsidian-excalidraw-plugin) | yes |
 
 All three are MIT-licensed and redistributed with credit per `ATTRIBUTION.md`.
 
