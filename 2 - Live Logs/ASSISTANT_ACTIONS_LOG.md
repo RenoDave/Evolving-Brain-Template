@@ -37,6 +37,20 @@
 ---
 
 - **Date:** 2026-05-23
+- **Action:** Ran first upstream sync against `9 - Operations/upstream/gbrain/`
+- **Context:** Pinned commit was `e9f3c9c` (2026-04-10). Checked gbrain's current master HEAD via `gh api`.
+- **Outcome:**
+  - gbrain has moved 208 commits since the pin (HEAD now `677142a`, 2026-05-23). Latest release: v0.40.6.0 parallel sync.
+  - 9 - Operations/upstream/SYNC-REPORT-2026-05-23.md — new report. Per-file recommendations: **0 ADOPT, 3 CONSIDER, 8 IGNORE, 0 BLOCKED**. CONSIDERs: `docs/GBRAIN_RECOMMENDED_SCHEMA.md` (priority — only "Yes — adopted" file), `docs/GBRAIN_SKILLPACK.md`, `skills/query/SKILL.md`. One file deleted upstream: `docs/SQLITE_ENGINE.md`.
+  - 9 - Operations/workflows/sync upstream.md — `last_run` set to 2026-05-23T19:30Z.
+  - 9 - Operations/runs/2026-05.md — new file (folder didn't exist yet), seeded with the sync run row.
+  - Pinned local copies NOT modified. Pinned commit hash in UPSTREAM.md NOT bumped — both wait for Dave's review per the workflow's hard rules.
+- **Single next action (Dave's call):** Read the diff of `docs/GBRAIN_RECOMMENDED_SCHEMA.md` (same size as pinned, so likely a rewrite, not an expansion). It's the only file we "Yes — adopted" into our entity templates. Everything else can wait or stay IGNORE'd.
+- **Undo:** `rm "9 - Operations/upstream/SYNC-REPORT-2026-05-23.md" "9 - Operations/runs/2026-05.md"` and `git checkout -- "9 - Operations/workflows/sync upstream.md"` (if not yet committed).
+- **Related:** [[sync upstream]], [[UPSTREAM]], MASTER PLAN Phase 6 pivot (gbrain runtime no longer relevant — drove most IGNORE recommendations)
+---
+
+- **Date:** 2026-05-23
 - **Action:** Created `/activate` slash command in Claude Code — vault-only mirror of the Cowork `renobuilt-activate` skill
 - **Context:** Dave built `renobuilt-activate` in Cowork earlier this session (it reads vault + Gmail + Calendar + QBO and outputs an Activation Report). He wanted the same logic available from Claude Code against the vault directly, without the external surfaces.
 - **Outcome:**

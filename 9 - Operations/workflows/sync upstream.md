@@ -2,7 +2,7 @@
 status: active
 schedule: "0 6 * * MON"   # Mondays at 6am — before the weekly review
 scope: global
-last_run: null
+last_run: 2026-05-23T19:30:00Z
 next_run: null
 owner: claude
 ---
