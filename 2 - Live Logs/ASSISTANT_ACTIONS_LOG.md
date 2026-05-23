@@ -35,3 +35,31 @@
 - **Undo:** `git diff HEAD~1` shows all changes; revert with `git revert HEAD` or restore each file from the previous commit. gbrain upstream tracking under `9 - Operations/upstream/gbrain/` is unchanged.
 - **Related:** Cowork session — built renobuilt-activate skill earlier in the same session
 ---
+
+- **Date:** 2026-05-23
+- **Action:** Scaffolded GitHub Actions cron for the inbox processor (Phase 5)
+- **Context:** Dave asked for the manual processor to move onto a scheduled job. GitHub Actions on a cron is the cheap path (free under 2,000 min/month on a private repo). Pushing the scaffold disabled until first manual run is verified.
+- **Outcome:**
+  - .github/workflows/inbox-processor.yml — new workflow file. Triggers: workflow_dispatch only. Cron block commented out (`0 */3 * * *` UTC, to enable later). Concurrency group prevents overlapping runs. Permissions: contents:write + issues:write. On failure: opens a GitHub Issue tagged `automation`/`inbox-processor`.
+  - scripts/run-inbox-processor.sh — new (chmod +x). Invokes `claude --print --permission-mode acceptEdits` with a prompt pointing at `9 - Operations/workflows/inbox processing.md` as the spec. Fatal if ANTHROPIC_API_KEY is missing or claude CLI is not installed. Push handled by the wrapping Action, not the script.
+  - 9 - Operations/workflows/README.md — added "Running the inbox processor on GitHub Actions" section with enable/disable steps, secrets setup, log locations, failure mode, and design rationale. Marked Inbox processing row "cron disabled, manual only" in the Active table.
+  - 9 - Operations/schedule.md — marked the inbox row "disabled — manual only" and added a "Scheduled runners" section showing which workflows have runners wired.
+  - All four files are uncommitted in the working tree (along with the second pivot log entry from earlier). Dave decides when to fold them into a commit.
+- **Undo:** `rm .github/workflows/inbox-processor.yml scripts/run-inbox-processor.sh` and `git checkout -- "9 - Operations/workflows/README.md" "9 - Operations/schedule.md"` (if not yet committed). No state outside the repo.
+- **To enable the cron (Dave's job):** (1) Add `ANTHROPIC_API_KEY` to GitHub Actions secrets, (2) trigger one manual run via Actions tab, (3) confirm green, (4) uncomment the `schedule:` block in the YAML.
+- **Related:** [[inbox processing]] workflow, MASTER PLAN Phase 5
+---
+
+- **Date:** 2026-05-23
+- **Action:** Cleaned dead gbrain runtime references from vault and committed the pivot (commit 6b44ea8)
+- **Context:** Same-day follow-up to the pivot decision. Audited the vault for stale `gbrain sync` / `gbrain init` calls and removed them. Five files needed surgery; pattern attributions to gbrain were left intact.
+- **Outcome:**
+  - 9 - Operations/workflows/inbox processing.md — Section 7 "Sync to gbrain" replaced with a one-line note pointing at the Drive MCP retrieval layer
+  - scripts/setup.sh — entire section 5 (gbrain install/init/sync, ~95 lines) removed; sections 6 and 7 renumbered to 5 and 6
+  - Vault/.env.example — OPENAI_API_KEY and SUPABASE_POOLER_URL moved to an "Optional — not currently used" section with both keys commented out (one-edit re-enable preserved)
+  - 9 - Operations/skills/README.md — gbrain row moved from Active CLI companions to a new "Optional / not currently installed" subsection
+  - Onboarding/REVIEW REPORT.md — "What's next" item 2 changed from "Set up gbrain" to "Confirm Google Drive sync is active"
+  - Committed as 6b44ea8 (10 files, 70 insertions, 161 deletions). Not pushed.
+- **Undo:** `git reset --hard HEAD~1` restores the previous state. Or `git revert 6b44ea8` to keep history clean.
+- **Related:** First entry of 2026-05-23 (the pivot decision itself)
+---

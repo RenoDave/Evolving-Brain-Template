@@ -1,0 +1,104 @@
+name: Inbox processor
+
+# Runs the Evolving Brain inbox processor (9 - Operations/workflows/inbox processing.md)
+# against the latest commit on main. Reads .inbox/, synthesizes new captures into
+# logs and entity pages, commits + pushes back.
+#
+# Status: SCAFFOLDED, NOT YET ENABLED. Cron block below is commented out. Trigger
+# manually via the "Run workflow" button in the Actions tab until first run is
+# verified, then uncomment the schedule block.
+
+on:
+  workflow_dispatch:
+  # To enable scheduled runs: uncomment the two lines below.
+  # Cron is UTC. `0 */3 * * *` = every 3 hours on the hour
+  # (00, 03, 06, 09, 12, 15, 18, 21 UTC).
+  # schedule:
+  #   - cron: '0 */3 * * *'
+
+permissions:
+  contents: write   # commit + push processor output
+  issues: write     # open a failure issue if the run errors
+
+concurrency:
+  group: inbox-processor
+  cancel-in-progress: false   # serialize runs, don't kill an in-flight processor
+
+jobs:
+  process-inbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout vault
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Prefer a fine-grained PAT (INBOX_PROCESSOR_PAT) so push works even if
+          # main has branch-protection rules. Falls back to the default
+          # GITHUB_TOKEN if the PAT isn't configured — which is fine if main is
+          # unprotected. See "Running the inbox processor on GitHub Actions" in
+          # 9 - Operations/workflows/README.md for setup.
+          token: ${{ secrets.INBOX_PROCESSOR_PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "Inbox Processor"
+          git config user.email "inbox-processor@users.noreply.github.com"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Check for inbox work
+        id: check
+        run: |
+          if [ -d .inbox ]; then
+            COUNT=$(find .inbox -type f \
+              -not -path '.inbox/processed/*' \
+              -not -path '.inbox/onboarding/*' \
+              -not -name 'README.md' \
+              -not -name '.gitkeep' \
+              | wc -l)
+          else
+            COUNT=0
+          fi
+          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
+          echo "Found $COUNT file(s) to process"
+
+      - name: Run inbox processor
+        if: steps.check.outputs.count != '0'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: bash scripts/run-inbox-processor.sh
+
+      - name: Push processor commits
+        if: steps.check.outputs.count != '0'
+        run: git push origin HEAD:main
+
+      - name: Open failure issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const today = new Date().toISOString().slice(0, 10);
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Inbox processor failed — ${today}`,
+              body: [
+                `The scheduled inbox processor failed.`,
+                ``,
+                `**Run:** ${runUrl}`,
+                ``,
+                `Check the run logs, fix the underlying cause, and re-trigger via "Run workflow" once it's green.`,
+                ``,
+                `If failures repeat across 3+ runs, consider disabling the cron schedule until the cause is understood.`,
+              ].join('\n'),
+              labels: ['automation', 'inbox-processor']
+            });
